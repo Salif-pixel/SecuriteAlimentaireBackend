@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider      = "mysql"
+  url           =  env("DATABASE_URL")
+  relationMode  = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+model User {  
+  id  String   @id @default(cuid())
+  email  String  @unique
+  firstName  String?
+  password   String
+  role  String  @default("USER")
+  Datenaissance String?
+  Profil  String?   @default("https://firebasestorage.googleapis.com/v0/b/imageupload-b31ae.appspot.com/o/profiles%2F88b1e113-42a1-4415-b485-b64ff944c9fe?alt=media&token=c35ef83e-ca9a-48c6-b6a5-1b1207381afa")
+  Background  String?   @default("https://firebasestorage.googleapis.com/v0/b/imageupload-b31ae.appspot.com/o/images%2Feaa99d7a-a268-4ca1-b729-908be31f509f?alt=media&token=3ddf72b7-9d98-4f8b-a08d-fcbe2c7a5097")
+  Online Boolean @default(false)
+  propos String? @db.VarChar(10000) @default("salut je suis nouveau sur le site " )
+  isResettingPassword Boolean @default(false)
+  resetPasswordToken String? @unique
+ 
+}
